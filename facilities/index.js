@@ -1,0 +1,1 @@
+exports.allFacilities = require('./allFacilities')

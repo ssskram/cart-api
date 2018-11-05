@@ -1,10 +1,9 @@
 var express = require('express')
 const bearerToken = require('express-bearer-token')
-var items = require('./items')
-var orders = require('./orders')
+var facilities = require('./facilities')
+var maintenanceRequests = require('./maintenanceRequests')
 
 require('dotenv').config()
-
 
 var app = express()
 app.set('port', process.env.PORT || 3000)
@@ -20,67 +19,53 @@ const checkToken = (token) => {
 }
 
 /*
-Items!
-These endpoints call up Cartegraph
-and return in-stock items for new orders
+Facilities
 */
 
-// return all items
-app.get('/allItems',
+// return all facilities
+app.get('/allFacilities',
   function (req, res) {
     const valid = (checkToken(req.token))
     if (valid == true) {
-        items.allItems.allItems()
-        res.status(200).send('Got it!')
-    } else res.status(403).end()
-  }
-)
-
-// return pbf items
-app.get('/pbfItems',
-  function (req, res) {
-    const valid = (checkToken(req.token))
-    if (valid == true) {
-
-    } else res.status(403).end()
-  }
-)
-
-// return dpw items
-app.get('/dpwItems',
-  function (req, res) {
-    const valid = (checkToken(req.token))
-    if (valid == true) {
-
+      res.status(200).send(facilities.allFacilities.get())
     } else res.status(403).end()
   }
 )
 
 /*
-Orders!
-These endpoints call up Mongo
-and return existing orders and active carts
+Maintenance requests
 */
 
-// return existing orders
-app.get('/allOrders',
+// return all maintenance requests
+app.get('/allRequests',
   function (req, res) {
     const valid = (checkToken(req.token))
     if (valid == true) {
-
+      res.status(200).send(maintenanceRequests.allRequests.get())
     } else res.status(403).end()
   }
 )
 
-// return existing carts
-app.get('/activeCarts',
+// return all issue types
+app.get('/allIssues',
   function (req, res) {
     const valid = (checkToken(req.token))
     if (valid == true) {
-
+      res.status(200).send(maintenanceRequests.allIssues.get())
     } else res.status(403).end()
   }
 )
+
+// create a new maintenance request
+app.post('/newRequest',
+  function (req, res) {
+    const valid = (checkToken(req.token))
+    if (valid == true) {
+      res.status(200).send(maintenanceRequests.newRequest.post())
+    } else res.status(403).end()
+  }
+)
+
 
 // Production error handler
 if (app.get('env') === 'production') {

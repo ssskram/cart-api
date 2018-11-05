@@ -1,5 +1,5 @@
 {
-  "name": "cartegraph api",
+  "name": "cartegraphApi",
   "version": "0.0.1",
   "dependencies": {
     "dotenv": "^2.0.0",

@@ -15,8 +15,8 @@ app.use(bearerToken())
 app.use(require('morgan')('combined'))
 
 // routes
-app.use("/facilities",require('./facilities'))
-app.use("/maintenanceRequests",require('./maintenanceRequests'))
+app.use("/facilities",require('./routes/facilities'))
+app.use("/maintenanceRequests",require('./routes/maintenanceRequests'))
 
 // Production error handler
 if (app.get('env') === 'production') {

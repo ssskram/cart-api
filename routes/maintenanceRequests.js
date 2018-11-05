@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const fetch = require("node-fetch")
-const checkToken = require('./auth')
+const checkToken = require('./../token')
 
 global.Headers = fetch.Headers
 
@@ -11,6 +11,26 @@ router.get('/allRequests',
     const valid = (checkToken(req.token))
     if (valid == true) {
       fetch("https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/Classes/cgRequestsClass?fields=Oid,BuildingNameField,LocationDescriptionField,DescriptionField,EntryDateField,StatusField,IssueField&filter=([EnteredBy] is equal to \"APIAdmin\")", {
+          method: 'get',
+          headers: new Headers({
+            'Authorization': 'Basic ' + process.env.CART
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          res.status(200).send(data)
+        })
+    } else res.status(403).end()
+  }
+)
+
+// return my maintenance requests
+// takes parameter ?user={email address}
+router.get('/myRequests',
+  function (req, res) {
+    const valid = (checkToken(req.token))
+    if (valid == true) {
+      fetch("https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgTasksClass?filter=(([RequesterEmail] is equal to \"" + req.query.user + "\"))", {
           method: 'get',
           headers: new Headers({
             'Authorization': 'Basic ' + process.env.CART

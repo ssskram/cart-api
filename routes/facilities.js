@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const fetch = require("node-fetch")
-const checkToken = require('./auth')
+const checkToken = require('./../token')
 
 global.Headers = fetch.Headers
 

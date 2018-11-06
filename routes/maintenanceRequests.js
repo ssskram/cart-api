@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const fetch = require("node-fetch")
-var DataTransform = require("node-json-transform").DataTransform
+const dt = require("node-json-transform").DataTransform
 const maps = require('../models/maintenanceRequests')
 const checkToken = require('./../token')
 
@@ -20,8 +20,7 @@ router.get('/allRequests',
         })
         .then(res => res.json())
         .then(data => {
-          const dataTransform = DataTransform(data, maps.allRequests)
-          res.status(200).send(dataTransform.transform())
+          res.status(200).send(dt(data, maps.allRequests).transform())
         })
     } else res.status(403).end()
   }
@@ -42,8 +41,7 @@ router.get('/myRequests',
         })
         .then(res => res.json())
         .then(data => {
-          const dataTransform = DataTransform(data, maps.myRequests)
-          res.status(200).send(dataTransform.transform())
+          res.status(200).send(dt(data, maps.myRequests).transform())
         })
     } else res.status(403).end()
   }
@@ -62,8 +60,7 @@ router.get('/allIssues',
         })
         .then(res => res.json())
         .then(data => {
-          const dataTransform = DataTransform(data, maps.issues)
-          res.status(200).send(dataTransform.transform())
+          res.status(200).send(dt(data, maps.issues).transform())
         })
     } else res.status(403).end()
   }

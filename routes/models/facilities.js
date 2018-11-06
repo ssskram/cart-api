@@ -5,8 +5,7 @@ const allFacilities = {
         cartegraphID: "Oid",
         name: "IDField",
         neighborhood: "NeighborhoodField",
-        lat: "CgShape.Center.Lat",
-        lng: "CgShape.Center.Lng"
+        shape: "CgShape.Points"
     },
     each: item => item
 }

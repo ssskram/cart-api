@@ -1,8 +1,11 @@
+
+// maintenance endpoints used by DPW Maintenance
+
 const express = require('express')
 const router = express.Router()
 const fetch = require("node-fetch")
 const dt = require("node-json-transform").DataTransform
-const maps = require('../models/maintenanceRequests')
+const models = require('./models/maintenanceRequests')
 const checkToken = require('./../token')
 
 global.Headers = fetch.Headers
@@ -20,7 +23,7 @@ router.get('/allRequests',
         })
         .then(res => res.json())
         .then(data => {
-          res.status(200).send(dt(data, maps.allRequests).transform())
+          res.status(200).send(dt(data, models.allRequests).transform())
         })
     } else res.status(403).end()
   }
@@ -41,7 +44,7 @@ router.get('/myRequests',
         })
         .then(res => res.json())
         .then(data => {
-          res.status(200).send(dt(data, maps.myRequests).transform())
+          res.status(200).send(dt(data, models.myRequests).transform())
         })
     } else res.status(403).end()
   }
@@ -60,7 +63,7 @@ router.get('/allIssues',
         })
         .then(res => res.json())
         .then(data => {
-          res.status(200).send(dt(data, maps.issues).transform())
+          res.status(200).send(dt(data, models.issues).transform())
         })
     } else res.status(403).end()
   }

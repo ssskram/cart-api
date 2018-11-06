@@ -1,6 +1,11 @@
+
+// facility endpoints used by DPW Maintenance
+
 const express = require('express')
 const router = express.Router()
+const dt = require("node-json-transform").DataTransform
 const fetch = require("node-fetch")
+const models = require('./models/facilities')
 const checkToken = require('./../token')
 
 global.Headers = fetch.Headers
@@ -18,7 +23,7 @@ router.get('/allFacilities',
         })
         .then(res => res.json())
         .then(data => {
-          res.status(200).send(data)
+          res.status(200).send(dt(data, models.allFacilities).transform())
         })
     } else res.status(403).end()
   }

@@ -15,8 +15,7 @@ const allFacilities = {
             }, 
             'on': 'shape'
         }
-    ],
-    each: item => item
+    ]
 }
 
 const shape = {

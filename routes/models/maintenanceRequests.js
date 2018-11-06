@@ -6,7 +6,6 @@ const issues = {
         name: "IssueField",
         type: "InternalRequestCategoryField"
     },
-    each: item => item
 }
 
 const allRequests = {
@@ -19,8 +18,7 @@ const allRequests = {
         submitted: "EntryDateField",
         status: "StatusField",
         issue: "IssueField"
-    },
-    each: item => item
+    }
 }
 
 const myRequests = {
@@ -35,7 +33,6 @@ const myRequests = {
         lastModified: "cgLastModifiedField",
         notes: "NotesField"
     },
-    each: item => item
 }
 
 module.exports = {

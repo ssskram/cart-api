@@ -1,3 +1,4 @@
+const dt = require("node-json-transform").DataTransform
 
 const allFacilities = {
     list: 'cgFacilitiesClass',
@@ -7,7 +8,23 @@ const allFacilities = {
         neighborhood: "NeighborhoodField",
         shape: "CgShape.Points"
     },
+    operate: [
+        {
+            'run': function(ary) { 
+            	return dt({list:ary}, shape).transform();
+            }, 
+            'on': 'shape'
+        }
+    ],
     each: item => item
+}
+
+const shape = {
+    'list': 'list',
+    'item' : {
+        'lat': 'Lat',
+        'lng': 'Lng'
+    }
 }
 
 module.exports = {

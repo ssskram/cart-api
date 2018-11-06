@@ -20,13 +20,15 @@ router.get('/allRequests',
         })
         .then(res => res.json())
         .then(data => {
-          res.status(200).send(data)
+          const dataTransform = DataTransform(data, maps.allRequests)
+          res.status(200).send(dataTransform.transform())
         })
     } else res.status(403).end()
   }
 )
 
 // return my maintenance requests
+// pulls from TasksClass, Cart.
 // takes parameter ?user={email address}
 router.get('/myRequests',
   function (req, res) {
@@ -40,7 +42,8 @@ router.get('/myRequests',
         })
         .then(res => res.json())
         .then(data => {
-          res.status(200).send(data)
+          const dataTransform = DataTransform(data, maps.myRequests)
+          res.status(200).send(dataTransform.transform())
         })
     } else res.status(403).end()
   }

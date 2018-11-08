@@ -8,19 +8,17 @@ const allFacilities = {
         neighborhood: "NeighborhoodField",
         shape: "CgShape.Points"
     },
-    operate: [
-        {
-            'run': function(ary) { 
-            	return dt({list:ary}, shape).transform();
-            }, 
-            'on': 'shape'
-        }
-    ]
+    operate: [{
+        'run': (ary) => dt({
+            list: ary
+        }, shape).transform(),
+        'on': 'shape'
+    }]
 }
 
 const shape = {
     'list': 'list',
-    'item' : {
+    'item': {
         'lat': 'Lat',
         'lng': 'Lng'
     }

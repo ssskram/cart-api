@@ -1,4 +1,7 @@
 
+const moment = require('moment')
+const dateTransform = (date) => moment(date).format('MM/DD/YYYY')
+
 const issues = {
     list: 'cgRequestIssuesClass',
     item: {
@@ -18,7 +21,11 @@ const allRequests = {
         submitted: "EntryDateField",
         status: "StatusField",
         issue: "IssueField"
-    }
+    },
+    operate: [{
+        'run': dateTransform,
+        'on': "submitted"
+    }]
 }
 
 const myRequests = {
@@ -33,6 +40,13 @@ const myRequests = {
         lastModified: "cgLastModifiedField",
         notes: "NotesField"
     },
+    operate: [{
+        'run': dateTransform,
+        'on': "submitted"
+    }, {
+        'run': dateTransform,
+        'on': "lastModified"
+    }]
 }
 
 module.exports = {

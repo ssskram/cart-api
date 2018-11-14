@@ -12,29 +12,13 @@ const issues = {
 }
 
 const allRequests = {
-    list: 'cgRequestsClass',
-    item: {
-        cartegraphID: "Oid",
-        building: "BuildingNameField",
-        location: "LocationDescriptionField",
-        description: "DescriptionField",
-        submitted: "EntryDateField",
-        status: "StatusField",
-        issue: "IssueField"
-    },
-    operate: [{
-        'run': dateTransform,
-        'on': "submitted"
-    }]
-}
-
-const myRequests = {
     list: 'cgTasksClass',
     item: {
         cartegraphID: "Oid",
         building: "cgAssetIDField",
         location: "LocationDescriptionField",
         description: "TaskDescriptionField",
+        issue: "RequestIssueField",
         submitted: "EntryDateField",
         status: "StatusField",
         lastModified: "cgLastModifiedField",
@@ -51,6 +35,5 @@ const myRequests = {
 
 module.exports = {
     issues,
-    allRequests,
-    myRequests
+    allRequests
 }

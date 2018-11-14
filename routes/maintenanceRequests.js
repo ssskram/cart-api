@@ -15,7 +15,7 @@ router.get('/allRequests',
   function (req, res) {
     const valid = (checkToken(req.token))
     if (valid == true) {
-      fetch("https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/Classes/cgRequestsClass?fields=Oid,BuildingNameField,LocationDescriptionField,DescriptionField,EntryDateField,StatusField,IssueField&filter=([EnteredBy] is equal to \"APIAdmin\")", {
+      fetch("https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgTasksClass?filter=(([RequestIssue] is not equal to \"\"))", {
           method: 'get',
           headers: new Headers({
             'Authorization': 'Basic ' + process.env.CART
@@ -24,27 +24,6 @@ router.get('/allRequests',
         .then(res => res.json())
         .then(data => {
           res.status(200).send(dt(data, models.allRequests).transform())
-        })
-    } else res.status(403).end()
-  }
-)
-
-// return my maintenance requests
-// pulls from TasksClass, Cart.
-// takes parameter ?user={email address}
-router.get('/myRequests',
-  function (req, res) {
-    const valid = (checkToken(req.token))
-    if (valid == true) {
-      fetch("https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgTasksClass?filter=(([RequesterEmail] is equal to \"" + req.query.user + "\"))", {
-          method: 'get',
-          headers: new Headers({
-            'Authorization': 'Basic ' + process.env.CART
-          })
-        })
-        .then(res => res.json())
-        .then(data => {
-          res.status(200).send(dt(data, models.myRequests).transform())
         })
     } else res.status(403).end()
   }

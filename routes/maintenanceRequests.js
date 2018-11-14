@@ -15,7 +15,7 @@ router.get('/allRequests',
   function (req, res) {
     const valid = (checkToken(req.token))
     if (valid == true) {
-      fetch("https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgTasksClass?limit=10000&filter=(([RequestIssue] is not equal to \"\"))", {
+      fetch("https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgTasksClass?filter=(([RequestIssue] is not equal to \"\"))&limit=10000&offset=0", {
           method: 'get',
           headers: new Headers({
             'Authorization': 'Basic ' + process.env.CART

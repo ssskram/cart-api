@@ -8,7 +8,7 @@ const issues = {
         cartegraphID: "Oid",
         name: "IssueField",
         type: "InternalRequestCategoryField"
-    },
+    }
 }
 
 const allRequests = {
@@ -18,7 +18,9 @@ const allRequests = {
         building: "cgAssetIDField",
         location: "LocationDescriptionField",
         description: "TaskDescriptionField",
+        department: "RequestDepartmentField",
         issue: "RequestIssueField",
+        submittedBy: "RequesterEmailField",
         submitted: "EntryDateField",
         status: "StatusField",
         lastModified: "cgLastModifiedField",

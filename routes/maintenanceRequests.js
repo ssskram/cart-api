@@ -77,6 +77,7 @@ router.post('/addImage',
   function (req, res) {
     const valid = (checkToken(req.token))
     if (valid == true) {
+      console.log(JSON.stringify(req.body))
       fetch('https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/attachments/cgTasksClass/' + req.query.oid + '/cgTasks_cgAttachmentsClass/?fileName=' + req.query.filename, {
         method: 'POST',
         headers: new Headers({
@@ -86,6 +87,8 @@ router.post('/addImage',
         body: JSON.stringify(req.body)
       })
         .then(response => response.json())
+        .then(data => console.log(data))
+        .then(res.status(201))
     }
     else res.status(403).end()
   }

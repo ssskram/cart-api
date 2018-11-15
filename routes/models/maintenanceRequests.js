@@ -14,7 +14,7 @@ const issues = {
 const allRequests = {
     list: 'cgTasksClass',
     item: {
-        cartegraphID: "Oid",
+        cartegraphID: "IDField",
         building: "cgAssetIDField",
         location: "LocationDescriptionField",
         description: "TaskDescriptionField",

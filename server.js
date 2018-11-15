@@ -1,6 +1,7 @@
-var express = require('express')
+const express = require('express')
+const bodyParser = require('body-parser')
 const bearerToken = require('express-bearer-token')
-var cors = require('cors')
+const cors = require('cors')
 
 // import env variables
 require('dotenv').config()
@@ -11,6 +12,9 @@ app.set('port', process.env.PORT || 3000)
 
 // bearer token
 app.use(bearerToken())
+
+// body parser
+app.use(bodyParser.json())
 
 // enable cors on all requests
 app.use(cors())

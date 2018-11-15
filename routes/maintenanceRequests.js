@@ -1,4 +1,3 @@
-
 // maintenance endpoints used by DPW Maintenance
 
 const express = require('express')
@@ -52,7 +51,28 @@ router.get('/allIssues',
 router.post('/newRequest',
   function (req, res) {
     const valid = (checkToken(req.token))
-    if (valid == true) {} else res.status(403).end()
+    if (valid == true) {
+      fetch("https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/Classes/cgTasksClass", {
+          method: 'POST',
+          headers: new Headers({
+            'Authorization': 'Basic ' + process.env.CART,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;odata=verbose'
+          }),
+          body: JSON.stringify(req.body)
+        })
+        .then(res => {
+          if (res.status == 200) {
+            return res.status(201).send({
+              success: 'true'
+            })
+          } else {
+            return res.status(201).send({
+              success: 'false'
+            })
+          }
+        })
+    } else res.status(403).end()
   }
 )
 

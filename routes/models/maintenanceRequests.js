@@ -1,6 +1,6 @@
 
 const moment = require('moment')
-const dateTransform = (date) => moment(date).format('MM/DD/YYYY')
+const dateTransform = (date) => moment(date).format('MM-DD-YYYY, hh:mm A')
 
 const issues = {
     list: 'cgRequestIssuesClass',

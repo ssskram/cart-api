@@ -1,6 +1,8 @@
 
 const moment = require('moment')
-const dateTransform = (date) => moment(date).format('MM-DD-YYYY, hh:mm A')
+const tz = require('moment-timezone')
+
+const dateTransform = (date) => moment(date).tz('America/New_York').format('MM-DD-YYYY, hh:mm A')
 
 const issues = {
     list: 'cgRequestIssuesClass',

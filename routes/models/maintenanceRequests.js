@@ -18,7 +18,7 @@ const allRequests = {
     item: {
         cartegraphID: "IDField",
         building: "cgAssetIDField",
-        location: "LocationDescriptionField",
+        location: "RequestLocationField",
         description: "TaskDescriptionField",
         department: "RequestDepartmentField",
         issue: "RequestIssueField",

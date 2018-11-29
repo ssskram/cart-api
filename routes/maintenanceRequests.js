@@ -88,6 +88,7 @@ router.post('/newRequest',
 router.post('/addImage',
   upload.single(),
   async function (req, res) {
+    // req = file
     const valid = (checkToken(req.token))
     if (valid == true) {
       const response = await fetch('https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/attachments/cgTasksClass/' + req.query.oid + '/cgTasks_cgAttachmentsClass/?fileName=' + req.query.filename, {

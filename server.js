@@ -25,6 +25,7 @@ app.use(require('morgan')('combined'))
 // routes
 app.use("/facilities",require('./routes/facilities'))
 app.use("/maintenanceRequests",require('./routes/maintenanceRequests'))
+app.use("/pghSupply",require('./routes/pghSupply'))
 
 // Production error handler
 if (app.get('env') === 'production') {

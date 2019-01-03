@@ -10,8 +10,10 @@ const dt = require("node-json-transform").DataTransform
 
 global.Headers = fetch.Headers
 
-// return all facilities
-router.get('/pbfItems',
+// return all items in materials class
+// currently, just items for Public Safety - Fire
+// expand filter as necessary
+router.get('/allItems',
   function (req, res) {
     const valid = (checkToken(req.token))
     if (valid == true) {

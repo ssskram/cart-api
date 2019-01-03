@@ -1,4 +1,3 @@
-
 // inventory endpoint used for PGH Supply
 
 const express = require('express')
@@ -24,10 +23,7 @@ router.get('/allItems',
           })
         })
         .then(res => res.json())
-        .then(data => {
-            console.log(data)
-          res.status(200).send(dt(data, models.pbfItems).transform())
-        })
+        .then(data => res.status(200).send(dt(data, models.pbfItems).transform()))
         .catch(err => res.status(500).send(err))
     } else res.status(403).end()
   }

@@ -3,8 +3,8 @@ const pbfItems = {
     list: 'cgMaterialsClass',
     item: {
         cartegraphID: "Oid",
-        name: "DescriptionField",
-        type: "PublicSafetyCategoriesField"
+        itemName: "DescriptionField",
+        itemType: "PublicSafetyCategoriesField"
     },
     each: item => {
         item.department = "Bureau of Fire"

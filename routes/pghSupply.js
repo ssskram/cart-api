@@ -16,7 +16,7 @@ router.get('/allItems',
   function (req, res) {
     const valid = (checkToken(req.token))
     if (valid == true) {
-      fetch('https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgMaterialsClass?filter=(([MaterialType] is equal to "Public Safety - Fire"))&fields=Oid,DescriptionField,PublicSafetyCategoriesField', {
+      fetch('https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgMaterialsClass?filter=(([MaterialType] is equal to "Public Safety - Fire"))&fields=Oid,DescriptionField,PublicSafetyCategoriesField,UnitField', {
           method: 'get',
           headers: new Headers({
             'Authorization': 'Basic ' + process.env.CART

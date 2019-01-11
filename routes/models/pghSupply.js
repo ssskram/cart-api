@@ -4,7 +4,8 @@ const pbfItems = {
     item: {
         cartegraphID: "Oid",
         itemName: "DescriptionField",
-        itemType: "PublicSafetyCategoriesField"
+        itemType: "PublicSafetyCategoriesField",
+        itemUnit: "UnitField"
     },
     each: item => {
         item.department = "Bureau of Fire"

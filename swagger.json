@@ -288,6 +288,111 @@
                     }
                 }
             }
+        },
+        "/pghSupply/allItems": {
+            "get": {
+                "tags": [
+                    "PGH Supply"
+                ],
+                "security": [{
+                    "Bearer": []
+                }],
+                "summary": "PBF Inventory",
+                "description": "Returns inventory to Supply Portal for PBF",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "An array of inventory items",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "cartegraphID": {
+                                        "type": "number"
+                                    },
+                                    "itemName": {
+                                        "type": "string"
+                                    },
+                                    "itemType": {
+                                        "type": "string"
+                                    },
+                                    "itemUnit": {
+                                        "type": "string"
+                                    },
+                                    "department": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access Denied"
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/facilities/allFacilities": {
+            "get": {
+                "tags": [
+                    "DPW Maintenance"
+                ],
+                "security": [{
+                    "Bearer": []
+                }],
+                "summary": "City facilities",
+                "description": "Returns all facilities from asset class",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "An array of asset records",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "cartegraphID": {
+                                        "type": "number"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "neighborhood": {
+                                        "type": "string"
+                                    },
+                                    "shape": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "lat": {
+                                                    "type": "number"
+                                                },
+                                                "lng": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access Denied"
+                    }
+                }
+            }
         }
     }
 }

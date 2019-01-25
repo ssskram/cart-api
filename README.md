@@ -8,6 +8,6 @@ Bearer token.  Just ask for it
 
 ## Docs
 
-Swagger UI is at base url
+Swagger UI:
 
-https://cartegraphapi.azurewebsites.us
+https://cartegraphapi.azurewebsites.us/docs

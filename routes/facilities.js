@@ -5,7 +5,7 @@ const express = require('express')
 const router = express.Router()
 const dt = require("node-json-transform").DataTransform
 const fetch = require("node-fetch")
-const models = require('./models/facilities')
+const models = require('../models/facilities')
 const checkToken = require('./../token')
 
 global.Headers = fetch.Headers

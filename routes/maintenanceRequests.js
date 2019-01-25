@@ -4,7 +4,7 @@ const express = require('express')
 const router = express.Router()
 const fetch = require('node-fetch')
 const dt = require('node-json-transform').DataTransform
-const models = require('./models/maintenanceRequests')
+const models = require('../models/maintenanceRequests')
 const checkToken = require('./../token')
 var multer = require('multer')
 

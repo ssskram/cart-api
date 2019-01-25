@@ -1,0 +1,82 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Cartegraph API",
+        "description": "Handles traffic between Cartegraph and client applications",
+        "version": "1.0.0"
+    },
+    "host": "cartegraphapi.azurewebsites.us",
+    "schemes": [
+        "https"
+    ],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "paths": {
+        "/maintenanceRequests/allRequests": {
+            "get": {
+                "tags": [
+                    "DPW Maintenance"
+                ],
+                "security": [{
+                    "Bearer": []
+                }],
+                "summary": "Maintenance requests",
+                "description": "Returns all maintenance requests",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "An array of maintenance requests",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "cartegraphID": {
+                                        "type": "string"
+                                    },
+                                    "building": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "department": {
+                                        "type": "string"
+                                    },
+                                    "issue": {
+                                        "type": "string"
+                                    },
+                                    "submittedBy": {
+                                        "type": "string"
+                                    },
+                                    "submitted": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "lastModified": {
+                                        "type": "string"
+                                    },
+                                    "notes": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access Denied"
+                    }
+                }
+            }
+        }
+    }
+}

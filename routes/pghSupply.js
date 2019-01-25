@@ -3,7 +3,7 @@
 const express = require('express')
 const router = express.Router()
 const fetch = require("node-fetch")
-const models = require('./models/pghSupply')
+const models = require('../models/pghSupply')
 const checkToken = require('./../token')
 const dt = require("node-json-transform").DataTransform
 

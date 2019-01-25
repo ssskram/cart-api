@@ -76,7 +76,7 @@ router.post('/newRequest',
         .then(response => response.json())
         .then(data => data.cgTasksClass[0])
         .then(newItem => newItem.Oid)
-        .then(Oid => res.status(201).send({
+        .then(Oid => res.status(200).send({
           Oid: Oid
         }))
         .catch(error => res.status(500).send(error))
@@ -99,7 +99,7 @@ router.post('/addImage',
         body: req
       })
       const json = await response.json()
-      res.status(201).send(json)
+      res.status(200).send(json)
     } else res.status(403).end()
   }
 )

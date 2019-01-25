@@ -77,6 +77,217 @@
                     }
                 }
             }
+        },
+        "/maintenanceRequests/allIssues": {
+            "get": {
+                "tags": [
+                    "DPW Maintenance"
+                ],
+                "security": [{
+                    "Bearer": []
+                }],
+                "summary": "Issue types",
+                "description": "Returns all available issue types for maintenance requests",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "An array of request types",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "cartegraphID": {
+                                        "type": "number"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access Denied"
+                    }
+                }
+            }
+        },
+        "/maintenanceRequests/newRequest": {
+            "post": {
+                "tags": [
+                    "DPW Maintenance"
+                ],
+                "security": [{
+                    "Bearer": []
+                }],
+                "summary": "Creates a maintenance request",
+                "description": "Passed a new maintenance request in body, formatted for Cartegraph",
+                "parameters": [{
+                        "name": "ActivityField",
+                        "in": "body",
+                        "description": "Required by Cartegraph: Investigate",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "DepartmentField",
+                        "in": "body",
+                        "description": "Required by Cartegraph: Facilities",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cgAssetTypeField",
+                        "in": "body",
+                        "description": "Required by Cartegraph: Facility",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cgAssetAndIdField",
+                        "in": "body",
+                        "description": "Required by Cartegraph: Facility + [building name]",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "StatusField",
+                        "in": "body",
+                        "description": "Defaults to 'Planned'",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cgAssetIDField",
+                        "in": "body",
+                        "description": "Building name",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "RequestIssueField",
+                        "in": "body",
+                        "description": "Issue type",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "TaskDescriptionField",
+                        "in": "body",
+                        "description": "Issue description",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "RequestDepartmentField",
+                        "in": "body",
+                        "description": "User's department",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "RequestLocationField",
+                        "in": "body",
+                        "description": "Specific location provided by user",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "RequestorPhoneNumberField",
+                        "in": "body",
+                        "description": "User's phone number",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "RequesterEmailField",
+                        "in": "body",
+                        "description": "User's email address",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the Oid of generated task",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Oid": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access Denied"
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/maintenanceRequests/addImage": {
+            "post": {
+                "tags": [
+                    "DPW Maintenance"
+                ],
+                "security": [{
+                    "Bearer": []
+                }],
+                "summary": "Image attachment",
+                "description": "Adds an image attachment to existing task (maintenance) record",
+                "parameters": [{
+                        "name": "oid",
+                        "in": "query",
+                        "description": "Oid of task to attach image file",
+                        "type": "number",
+                        "required": true
+                    },
+                    {
+                        "name": "filename",
+                        "in": "query",
+                        "description": "Name of the image file",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "image",
+                        "in": "body",
+                        "description": "Image file as binary string",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the Cartegraph response",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "response": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access Denied"
+                    }
+                }
+            }
         }
     }
 }

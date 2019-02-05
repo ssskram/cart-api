@@ -28,9 +28,10 @@ app.use(cors())
 app.use(require('morgan')('combined'))
 
 // routes
-app.use("/facilities",require('./routes/facilities'))
-app.use("/maintenanceRequests",require('./routes/maintenanceRequests'))
-app.use("/pghSupply",require('./routes/pghSupply'))
+app.use("/facilities", require('./routes/facilities'))
+app.use("/maintenanceRequests", require('./routes/maintenanceRequests'))
+app.use("/pghSupply", require('./routes/pghSupply'))
+app.use("/pghWorks", require('./routes/pghWorks'))
 
 // Production error handler
 if (app.get('env') === 'production') {

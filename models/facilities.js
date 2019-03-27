@@ -1,29 +1,35 @@
-const dt = require("node-json-transform").DataTransform
+const dt = require("node-json-transform").DataTransform;
 
 const allFacilities = {
-    list: 'cgFacilitiesClass',
-    item: {
-        cartegraphID: "Oid",
-        name: "IDField",
-        neighborhood: "NeighborhoodField",
-        shape: "CgShape.Points"
-    },
-    operate: [{
-        'run': (ary) => dt({
+  list: "cgFacilitiesClass",
+  item: {
+    cartegraphID: "Oid",
+    name: "IDField",
+    neighborhood: "NeighborhoodField",
+    shape: "CgShape.Points"
+  },
+  operate: [
+    {
+      run: ary =>
+        dt(
+          {
             list: ary
-        }, shape).transform(),
-        'on': 'shape'
-    }]
-}
+          },
+          shape
+        ).transform(),
+      on: "shape"
+    }
+  ]
+};
 
 const shape = {
-    'list': 'list',
-    'item': {
-        'lat': 'Lat',
-        'lng': 'Lng'
-    }
-}
+  list: "list",
+  item: {
+    lat: "Lat",
+    lng: "Lng"
+  }
+};
 
 module.exports = {
-    allFacilities
-}
+  allFacilities
+};

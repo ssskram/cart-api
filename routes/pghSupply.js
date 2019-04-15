@@ -26,4 +26,29 @@ router.get("/allItems", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
+router.get("/itemImage", (req, res) => {
+  fetch(
+    "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/attachments/primary/cgMaterialsClass/" +
+      req.query.oid,
+    {
+      method: "get",
+      headers: new Headers({
+        Authorization: "Basic " + process.env.CART
+      })
+    }
+  )
+    .then(response => {
+      try {
+        res.contentType("image/jpeg");
+        res.status(200).send(response.body);
+      } catch (err) {
+        console.log(err);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send(err);
+    });
+});
+
 module.exports = router;

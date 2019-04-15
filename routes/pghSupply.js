@@ -11,7 +11,7 @@ const dt = require("node-json-transform").DataTransform;
 // expand filter as necessary
 router.get("/allItems", (req, res) => {
   fetch(
-    'https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgMaterialsClass?filter=(([MaterialType] is equal to "Public Safety - Fire"))&fields=Oid,DescriptionField,PublicSafetyCategoriesField,UnitField',
+    'https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgMaterialsClass?filter=((([MaterialType] is equal to "Warehouse") OR ([MaterialType] is equal to "Public Safety - Fire")) AND ([PublicSafetyCategories] is not equal to ""))&fields=Oid,DescriptionField,PublicSafetyCategoriesField,UnitField,MaterialTypeField,PrimaryAttachmentField&limit=10000&offset=0',
     {
       method: "get",
       headers: new Headers({
@@ -20,7 +20,9 @@ router.get("/allItems", (req, res) => {
     }
   )
     .then(res => res.json())
-    .then(data => res.status(200).send(dt(data, models.pbfItems).transform()))
+    .then(data =>
+      res.status(200).send(dt(data, models.inventoryItems).transform())
+    )
     .catch(err => res.status(500).send(err));
 });
 

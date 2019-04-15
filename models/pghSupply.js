@@ -8,9 +8,10 @@ const setDepartment = dept => {
   return d;
 };
 
-const setImageURL = oid => {
-  return "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/attachments/primary/cgMaterialsClass/" +
-    oid;
+const hasImage = attachment => {
+  if (attachment == "") {
+    return false;
+  } else return true;
 };
 
 const inventoryItems = {
@@ -21,7 +22,7 @@ const inventoryItems = {
     itemType: "PublicSafetyCategoriesField",
     itemUnit: "UnitField",
     department: "MaterialTypeField",
-    image: "Oid"
+    hasImage: "PrimaryAttachmentField"
   },
   operate: [
     {
@@ -29,8 +30,8 @@ const inventoryItems = {
       on: "department"
     },
     {
-      run: setImageURL,
-      on: "image"
+      run: hasImage,
+      on: "hasImage"
     }
   ]
 };

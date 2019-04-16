@@ -1,10 +1,12 @@
 // inventory endpoint used for PGH Supply
 
 const express = require("express");
+var request = require("request");
 const router = express.Router();
 const fetch = require("node-fetch");
 const models = require("../models/pghSupply");
 const dt = require("node-json-transform").DataTransform;
+var fs = require('fs');
 
 // return all items in materials class
 // currently, just items for Public Safety - Fire
@@ -27,28 +29,20 @@ router.get("/allItems", (req, res) => {
 });
 
 router.get("/itemImage", (req, res) => {
-  fetch(
-    "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/attachments/primary/cgMaterialsClass/" +
+  var options = {
+    method: "GET",
+    url:
+      "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/attachments/primary/cgMaterialsClass/" +
       req.query.oid,
-    {
-      method: "get",
-      headers: new Headers({
-        Authorization: "Basic " + process.env.CART
-      })
+    headers: {
+      Authorization: "Basic " + process.env.CART
     }
-  )
-    .then(response => {
-      try {
-        res.contentType("image/jpeg");
-        res.status(200).send(response.body);
-      } catch (err) {
-        console.log(err);
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).send(err);
-    });
+  };
+
+  request(options, function(error, response, body) {
+    if (error) res.status(500).send(err);
+    res.status(200).send(body);
+  });
 });
 
 module.exports = router;

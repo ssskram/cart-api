@@ -36,6 +36,15 @@ const inventoryItems = {
   ]
 };
 
+const deliveryLocations = {
+  list: "WarehouseDeliveryLocationsClass",
+  item: {
+    location: "DeliveryLocationField",
+    department: "DepartmentField",
+  }
+};
+
 module.exports = {
-  inventoryItems
+  inventoryItems,
+  deliveryLocations
 };

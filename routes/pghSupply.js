@@ -9,8 +9,6 @@ const request = require("request");
 const fs = require("fs");
 
 // return all items in materials class
-// currently, just items for Public Safety - Fire
-// expand filter as necessary
 router.get("/allItems", (req, res) => {
   fetch(
     'https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgMaterialsClass?filter=((([MaterialType] is equal to "Warehouse") OR ([MaterialType] is equal to "Public Safety - Fire")) AND ([PublicSafetyCategories] is not equal to ""))&fields=Oid,DescriptionField,PublicSafetyCategoriesField,UnitField,MaterialTypeField,PrimaryAttachmentField&limit=10000&offset=0',
@@ -28,6 +26,7 @@ router.get("/allItems", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
+// passed an oid, returns the primary attachment, which is an image
 router.get("/itemImage", (req, res) => {
   const options = {
     encoding: null,
@@ -44,4 +43,21 @@ router.get("/itemImage", (req, res) => {
   request(options, (e, r, body) => {}).pipe(res);
 });
 
+// delivery locations
+router.get("/deliveryLocations", (req, res) => {
+  fetch(
+    "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/Classes/WarehouseDeliveryLocationsClass",
+    {
+      method: "get",
+      headers: new Headers({
+        Authorization: "Basic " + process.env.CART
+      })
+    }
+  )
+    .then(res => res.json())
+    .then(data =>
+      res.status(200).send(dt(data, models.deliveryLocations).transform())
+    )
+    .catch(err => res.status(500).send(err));
+});
 module.exports = router;

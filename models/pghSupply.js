@@ -18,6 +18,7 @@ const inventoryItems = {
   list: "cgMaterialsClass",
   item: {
     cartegraphID: "Oid",
+    inventoryID: "IDField",
     itemName: "DescriptionField",
     itemType: "PublicSafetyCategoriesField",
     itemUnit: "UnitField",

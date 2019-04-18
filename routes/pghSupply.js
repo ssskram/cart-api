@@ -11,7 +11,7 @@ const fs = require("fs");
 // return all items in materials class
 router.get("/allItems", (req, res) => {
   fetch(
-    'https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgMaterialsClass?filter=((([MaterialType] is equal to "Warehouse") OR ([MaterialType] is equal to "Public Safety - Fire")) AND ([PublicSafetyCategories] is not equal to ""))&fields=Oid,DescriptionField,PublicSafetyCategoriesField,UnitField,MaterialTypeField,PrimaryAttachmentField&limit=10000&offset=0',
+    'https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgMaterialsClass?filter=((([MaterialType] is equal to "Warehouse") OR ([MaterialType] is equal to "Public Safety - Fire")) AND ([PublicSafetyCategories] is not equal to ""))&fields=Oid,DescriptionField,PublicSafetyCategoriesField,UnitField,MaterialTypeField,PrimaryAttachmentField,IDField&limit=10000&offset=0',
     {
       method: "get",
       headers: new Headers({

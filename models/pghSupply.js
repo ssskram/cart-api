@@ -41,7 +41,7 @@ const deliveryLocations = {
   list: "WarehouseDeliveryLocationsClass",
   item: {
     location: "DeliveryLocationField",
-    department: "DepartmentField",
+    department: "DepartmentField"
   }
 };
 

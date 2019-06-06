@@ -28,19 +28,21 @@ router.get("/allItems", (req, res) => {
 
 // passed an oid, returns the primary attachment, which is an image
 router.get("/itemImage", (req, res) => {
-  const options = {
-    encoding: null,
-    url:
-      "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/attachments/primary/cgMaterialsClass/" +
-      req.query.oid,
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      Authorization: "Basic " + process.env.CART,
-      "Content-type": "image/*"
-    }
-  };
-  request(options, (e, r, body) => {}).pipe(res);
+  try {
+    const options = {
+      encoding: null,
+      url:
+        "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/attachments/primary/cgMaterialsClass/" +
+        req.query.oid,
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Basic " + process.env.CART,
+        "Content-type": "image/*"
+      }
+    };
+    request(options, (e, r, body) => {}).pipe(res);
+  } catch (err) {}
 });
 
 // delivery locations

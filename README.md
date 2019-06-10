@@ -9,7 +9,7 @@ Bearer token.  Just ask for it
 ## File structure
     .
     ├── models                  # Data transformations
-    ├── routes                  # All endpoints, grouped by application
+    ├── routes                  # All endpoints, grouped by application, or by class
     ...                   
     ├── server.js               # Entry point, Express config
     ...

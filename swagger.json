@@ -1,398 +1,532 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "Cartegraph API",
-        "description": "Handles traffic between Cartegraph and client applications",
-        "version": "1.0.0"
-    },
-    "host": "cartegraphapi.azurewebsites.us",
-    "schemes": [
-        "https"
-    ],
-    "securityDefinitions": {
-        "Bearer": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
-        }
-    },
-    "paths": {
-        "/maintenanceRequests/allRequests": {
-            "get": {
-                "tags": [
-                    "DPW Maintenance"
-                ],
-                "security": [{
-                    "Bearer": []
-                }],
-                "summary": "Maintenance requests",
-                "description": "Returns all maintenance requests",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "An array of maintenance requests",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "properties": {
-                                    "cartegraphID": {
-                                        "type": "string"
-                                    },
-                                    "building": {
-                                        "type": "string"
-                                    },
-                                    "location": {
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    },
-                                    "department": {
-                                        "type": "string"
-                                    },
-                                    "issue": {
-                                        "type": "string"
-                                    },
-                                    "submittedBy": {
-                                        "type": "string"
-                                    },
-                                    "submitted": {
-                                        "type": "string"
-                                    },
-                                    "status": {
-                                        "type": "string"
-                                    },
-                                    "lastModified": {
-                                        "type": "string"
-                                    },
-                                    "notes": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Access Denied"
-                    }
-                }
-            }
-        },
-        "/maintenanceRequests/allIssues": {
-            "get": {
-                "tags": [
-                    "DPW Maintenance"
-                ],
-                "security": [{
-                    "Bearer": []
-                }],
-                "summary": "Issue types",
-                "description": "Returns all available issue types for maintenance requests",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "An array of request types",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "properties": {
-                                    "cartegraphID": {
-                                        "type": "number"
-                                    },
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "type": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Access Denied"
-                    }
-                }
-            }
-        },
-        "/maintenanceRequests/newRequest": {
-            "post": {
-                "tags": [
-                    "DPW Maintenance"
-                ],
-                "security": [{
-                    "Bearer": []
-                }],
-                "summary": "Creates a maintenance request",
-                "description": "Passed a new maintenance request in body, formatted for Cartegraph",
-                "parameters": [{
-                        "name": "ActivityField",
-                        "in": "body",
-                        "description": "Required by Cartegraph: Investigate",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "DepartmentField",
-                        "in": "body",
-                        "description": "Required by Cartegraph: Facilities",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "cgAssetTypeField",
-                        "in": "body",
-                        "description": "Required by Cartegraph: Facility",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "cgAssetAndIdField",
-                        "in": "body",
-                        "description": "Required by Cartegraph: Facility + [building name]",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "StatusField",
-                        "in": "body",
-                        "description": "Defaults to 'Planned'",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "cgAssetIDField",
-                        "in": "body",
-                        "description": "Building name",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "RequestIssueField",
-                        "in": "body",
-                        "description": "Issue type",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "TaskDescriptionField",
-                        "in": "body",
-                        "description": "Issue description",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "RequestDepartmentField",
-                        "in": "body",
-                        "description": "User's department",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "RequestLocationField",
-                        "in": "body",
-                        "description": "Specific location provided by user",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "RequestorPhoneNumberField",
-                        "in": "body",
-                        "description": "User's phone number",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "RequesterEmailField",
-                        "in": "body",
-                        "description": "User's email address",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Returns the Oid of generated task",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "Oid": {
-                                    "type": "number"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Access Denied"
-                    },
-                    "500": {
-                        "description": "Server Error",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "Error": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/maintenanceRequests/addImage": {
-            "post": {
-                "tags": [
-                    "DPW Maintenance"
-                ],
-                "security": [{
-                    "Bearer": []
-                }],
-                "summary": "Image attachment",
-                "description": "Adds an image attachment to existing task (maintenance) record",
-                "parameters": [{
-                        "name": "oid",
-                        "in": "query",
-                        "description": "Oid of task to attach image file",
-                        "type": "number",
-                        "required": true
-                    },
-                    {
-                        "name": "filename",
-                        "in": "query",
-                        "description": "Name of the image file",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "image",
-                        "in": "body",
-                        "description": "Image file as binary string",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Returns the Cartegraph response",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "response": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Access Denied"
-                    }
-                }
-            }
-        },
-        "/pghSupply/allItems": {
-            "get": {
-                "tags": [
-                    "PGH Supply"
-                ],
-                "security": [{
-                    "Bearer": []
-                }],
-                "summary": "PBF Inventory",
-                "description": "Returns inventory to Supply Portal for PBF",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "An array of inventory items",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "properties": {
-                                    "cartegraphID": {
-                                        "type": "number"
-                                    },
-                                    "itemName": {
-                                        "type": "string"
-                                    },
-                                    "itemType": {
-                                        "type": "string"
-                                    },
-                                    "itemUnit": {
-                                        "type": "string"
-                                    },
-                                    "department": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Access Denied"
-                    },
-                    "500": {
-                        "description": "Server Error",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "Error": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/facilities/allFacilities": {
-            "get": {
-                "tags": [
-                    "DPW Maintenance"
-                ],
-                "security": [{
-                    "Bearer": []
-                }],
-                "summary": "City facilities",
-                "description": "Returns all facilities from asset class",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "An array of asset records",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "properties": {
-                                    "cartegraphID": {
-                                        "type": "number"
-                                    },
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "neighborhood": {
-                                        "type": "string"
-                                    },
-                                    "shape": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "lat": {
-                                                    "type": "number"
-                                                },
-                                                "lng": {
-                                                    "type": "number"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Access Denied"
-                    }
-                }
-            }
-        }
+  "swagger": "2.0",
+  "info": {
+    "title": "Cartegraph API",
+    "description": "Handles traffic between Cartegraph and client applications",
+    "version": "1.0.0"
+  },
+  "host": "cartegraphapi.azurewebsites.us",
+  "schemes": ["https"],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
     }
+  },
+  "paths": {
+    "/maintenanceRequests/allRequests": {
+      "get": {
+        "tags": ["DPW Maintenance"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Maintenance requests",
+        "description": "Returns all maintenance requests",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "An array of maintenance requests",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "cartegraphID": {
+                    "type": "string"
+                  },
+                  "building": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "department": {
+                    "type": "string"
+                  },
+                  "issue": {
+                    "type": "string"
+                  },
+                  "submittedBy": {
+                    "type": "string"
+                  },
+                  "submitted": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "lastModified": {
+                    "type": "string"
+                  },
+                  "notes": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Denied"
+          }
+        }
+      }
+    },
+    "/maintenanceRequests/allIssues": {
+      "get": {
+        "tags": ["DPW Maintenance"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Issue types",
+        "description": "Returns all available issue types for maintenance requests",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "An array of request types",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "cartegraphID": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Denied"
+          }
+        }
+      }
+    },
+    "/maintenanceRequests/newRequest": {
+      "post": {
+        "tags": ["DPW Maintenance"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Creates a maintenance request",
+        "description": "Passed a new maintenance request in body, formatted for Cartegraph",
+        "parameters": [
+          {
+            "name": "ActivityField",
+            "in": "body",
+            "description": "Required by Cartegraph: Investigate",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "DepartmentField",
+            "in": "body",
+            "description": "Required by Cartegraph: Facilities",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "cgAssetTypeField",
+            "in": "body",
+            "description": "Required by Cartegraph: Facility",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "cgAssetAndIdField",
+            "in": "body",
+            "description": "Required by Cartegraph: Facility + [building name]",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "StatusField",
+            "in": "body",
+            "description": "Defaults to 'Planned'",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "cgAssetIDField",
+            "in": "body",
+            "description": "Building name",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "RequestIssueField",
+            "in": "body",
+            "description": "Issue type",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "TaskDescriptionField",
+            "in": "body",
+            "description": "Issue description",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "RequestDepartmentField",
+            "in": "body",
+            "description": "User's department",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "RequestLocationField",
+            "in": "body",
+            "description": "Specific location provided by user",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "RequestorPhoneNumberField",
+            "in": "body",
+            "description": "User's phone number",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "RequesterEmailField",
+            "in": "body",
+            "description": "User's email address",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the Oid of generated task",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Oid": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Denied"
+          },
+          "500": {
+            "description": "Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/maintenanceRequests/addImage": {
+      "post": {
+        "tags": ["DPW Maintenance"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Image attachment",
+        "description": "Adds an image attachment to existing task (maintenance) record",
+        "parameters": [
+          {
+            "name": "oid",
+            "in": "query",
+            "description": "Oid of task to attach image file",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "filename",
+            "in": "query",
+            "description": "Name of the image file",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "image",
+            "in": "body",
+            "description": "Image file as binary string",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the Cartegraph response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "response": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Denied"
+          }
+        }
+      }
+    },
+    "/pghSupply/allItems": {
+      "get": {
+        "tags": ["PGH Supply"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "ALl inventory items",
+        "description": "Returns inventory to Supply Portal for PBF/DPW/Parks",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "An array of inventory items",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "cartegraphID": {
+                    "type": "number"
+                  },
+                  "itemName": {
+                    "type": "string"
+                  },
+                  "itemType": {
+                    "type": "string"
+                  },
+                  "itemUnit": {
+                    "type": "string"
+                  },
+                  "department": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Denied"
+          },
+          "500": {
+            "description": "Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pghSupply/itemImage": {
+      "get": {
+        "tags": ["PGH Supply"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Inventory image",
+        "description": "Returns item image",
+        "parameters": [
+          {
+            "name": "oid",
+            "in": "query",
+            "description": "UUID of attachment",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image"
+          },
+          "403": {
+            "description": "Access Denied"
+          }
+        }
+      }
+    },
+    "/pghSupply/deliveryLocations": {
+      "get": {
+        "tags": ["PGH Supply"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Delivery locations",
+        "description": "Array of delivery locations for PBF/DPW/Parks",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Array of delivery locations",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "location": {
+                    "type": "string"
+                  },
+                  "department": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Denied"
+          },
+          "500": {
+            "description": "Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/facilities/allFacilities": {
+      "get": {
+        "tags": ["DPW Maintenance"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "City facilities",
+        "description": "Returns all facilities from asset class",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "An array of asset records",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "cartegraphID": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "neighborhood": {
+                    "type": "string"
+                  },
+                  "shape": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "lat": {
+                          "type": "number"
+                        },
+                        "lng": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Denied"
+          }
+        }
+      }
+    },
+    "/pghWorks/activity": {
+      "get": {
+        "tags": ["PGH Works"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Activity",
+        "description": "Returns array of project activity records",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "An array of activity records",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "cartegraphID": {
+                    "type": "number"
+                  },
+                  "activityID": {
+                    "type": "string"
+                  },
+                  "user": {
+                    "type": "string"
+                  },
+                  "activity": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string"
+                  },
+                  "parentID": {
+                    "type": "string"
+                  },
+                  "parentType": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Denied"
+          },
+          "500": {
+            "description": "Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

@@ -42,7 +42,9 @@ router.get("/itemImage", (req, res) => {
       }
     };
     request(options, (e, r, body) => {}).pipe(res);
-  } catch (err) {}
+  } catch (err) {
+    console.log(err)
+  }
 });
 
 // delivery locations

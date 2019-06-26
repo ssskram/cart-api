@@ -21,8 +21,8 @@ app.use(bodyParser.json());
 // enable cors on all requests
 app.use(cors());
 
-// logging
-app.use(require("morgan")("combined"));
+// // logging
+// app.use(require("morgan")("combined"));
 
 // docs
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));

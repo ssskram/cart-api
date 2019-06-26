@@ -23,7 +23,11 @@ router.get("/allItems", (req, res) => {
     .then(data =>
       res.status(200).send(dt(data, models.inventoryItems).transform())
     )
-    .catch(err => res.status(500).send(err));
+    .catch(err => {
+      console.log(27);
+      console.log(err);
+      res.status(500).send(err);
+    });
 });
 
 // passed an oid, returns the primary attachment, which is an image
@@ -41,9 +45,20 @@ router.get("/itemImage", (req, res) => {
         "Content-type": "image/*"
       }
     };
-    request(options, (e, r, body) => {}).pipe(res);
+    request(options, (e, r, body) => {
+      if (e) {
+        console.log(50);
+        console.log(e);
+        console.log(r);
+      }
+      if (r && r.statusCode != 200) {
+        console.log(54);
+        console.log(r.statusCode);
+      }
+    }).pipe(res);
   } catch (err) {
-    console.log(err)
+    console.log(59);
+    console.log(err);
   }
 });
 
@@ -62,6 +77,10 @@ router.get("/deliveryLocations", (req, res) => {
     .then(data =>
       res.status(200).send(dt(data, models.deliveryLocations).transform())
     )
-    .catch(err => res.status(500).send(err));
+    .catch(err => {
+      console.log(80);
+      console.log(err);
+      res.status(500).send(err);
+    });
 });
 module.exports = router;
